@@ -20,7 +20,10 @@ def load_metadata(csv_path: str | Path = REPO_ROOT / "data" / "metadata.csv") ->
         raise ValueError(f"metadata is missing columns: {missing}")
     if df["patient_id"].isna().any():
         raise ValueError("metadata contains missing patient_id values")
-    return df.set_index("slice_id", verify_integrity=True)
+    df = df.set_index("slice_id")
+    if not df.index.is_unique:
+        raise ValueError("metadata slice_id values are not unique")
+    return df
 
 
 def load_array(npy_path: str | Path, root: Path = REPO_ROOT) -> np.ndarray:
