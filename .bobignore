@@ -1,0 +1,13 @@
+data/
+*.npy
+*.png
+*.jpg
+mlruns/
+wandb/
+node_modules/
+.next/
+dist/
+.venv/
+__pycache__/
+bob_sessions/
+.env

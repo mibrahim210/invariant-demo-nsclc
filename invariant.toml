@@ -1,0 +1,15 @@
+[target]
+protocol = "docs/study_protocol.pdf"
+metadata = "data/metadata.csv"
+group_key = "patient_id"
+split_function = "demo_repo.splits:make_split"
+split_seed = 0
+
+[checks]
+required = ["inspect_split", "verify_split_overlap", "find_invariant_tests", "regression_tests"]
+regression_tests = ["tests/test_split_invariants.py"]
+
+[invariants]
+patient_independence = "checked"
+train_only_fitting = "not_checked"
+inference_consistency = "not_checked"
