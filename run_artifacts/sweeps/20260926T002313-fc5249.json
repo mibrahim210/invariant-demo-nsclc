@@ -1,0 +1,100 @@
+{
+  "sweep_id": "20260926T002313-fc5249",
+  "git_sha": "ef5d384f02ed51280759376bdbda0be27a2865e9",
+  "git_dirty": false,
+  "metadata_hash": "aff30de03f8c87ca750c1752678069f1c3cd33d06703ae86c5c9e5ff2815dce0",
+  "image_manifest_hash": "327ce4868f05975c99e8ed996afa9a410f92bb5e70d06c16d72f721175cc0568",
+  "image_manifest_verified": true,
+  "generation_config_hash": "5d9eb59028f68955ca7a02b12d9453c9ad55caa461b4863aca27d8139f0015e5",
+  "generation_manifest_hash": "e0a8efd1d64593ad8b8b7e03f166770d11b84bf4188866e582d78c2fb665c571",
+  "generator_git_sha": "088ca9ad6bc88635c462d953da98703c709569b5",
+  "dependency_versions": {
+    "python": "3.11.0",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "mlflow": "3.16.1"
+  },
+  "split_function": "demo_repo.splits:make_split",
+  "split_code": {
+    "module": "demo_repo.splits",
+    "file_sha256": "6c5712383a3b491d0cb76ab0b6826cde3a71009d13b5709e98e113d10c946d1e",
+    "repo_git_sha": "ef5d384f02ed51280759376bdbda0be27a2865e9",
+    "repo_relative_path": "demo_repo/splits.py",
+    "repo_remote": "https://github.com/mibrahim210/invariant-demo-nsclc.git",
+    "tracked": true,
+    "clean": true
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "runs": [
+    {
+      "seed": 0,
+      "run_id": "76b0d2dcbafc49d5ab6475efd794ed13",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 1,
+      "run_id": "25c6042ec0024cee9bdb5e3277f842c9",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 2,
+      "run_id": "6f4dcb0f1a414dfcb2164e143b8de84d",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 3,
+      "run_id": "9b62a7496cf64ada986747b3841e42f4",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 4,
+      "run_id": "5aac48aa31594688b995602809dad6ea",
+      "status": "completed",
+      "status_reason": null
+    }
+  ],
+  "overlap_count": [
+    166,
+    172,
+    169,
+    167,
+    166
+  ],
+  "patient_auc": {
+    "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "defined": 5,
+    "total": 5,
+    "mean": 1.0,
+    "population_std": 0.0
+  },
+  "slice_auc": {
+    "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "defined": 5,
+    "total": 5,
+    "mean": 1.0,
+    "population_std": 0.0
+  }
+}
