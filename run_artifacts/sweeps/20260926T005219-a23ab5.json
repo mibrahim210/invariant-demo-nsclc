@@ -1,0 +1,100 @@
+{
+  "sweep_id": "20260926T005219-a23ab5",
+  "git_sha": "42079a05a61ae122c9c1110b16061288c32fdcc9",
+  "git_dirty": false,
+  "metadata_hash": "aff30de03f8c87ca750c1752678069f1c3cd33d06703ae86c5c9e5ff2815dce0",
+  "image_manifest_hash": "327ce4868f05975c99e8ed996afa9a410f92bb5e70d06c16d72f721175cc0568",
+  "image_manifest_verified": true,
+  "generation_config_hash": "5d9eb59028f68955ca7a02b12d9453c9ad55caa461b4863aca27d8139f0015e5",
+  "generation_manifest_hash": "e0a8efd1d64593ad8b8b7e03f166770d11b84bf4188866e582d78c2fb665c571",
+  "generator_git_sha": "088ca9ad6bc88635c462d953da98703c709569b5",
+  "dependency_versions": {
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "mlflow": "3.16.1"
+  },
+  "split_function": "reference_splits:grouped_split",
+  "split_code": {
+    "module": "reference_splits",
+    "file_sha256": "9ca54191cc8356d20b217b01a01cf132d48da4382deb297db919886fd5739d2a",
+    "repo_git_sha": "683a906a052d48d54de71b06d134ce6749a54ec8",
+    "repo_relative_path": "reference/reference_splits.py",
+    "repo_remote": null,
+    "tracked": true,
+    "clean": true
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "runs": [
+    {
+      "seed": 0,
+      "run_id": "865ba31ba63d4db4bfffce44e1455ff0",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 1,
+      "run_id": "12974038029c44c4ae69143e1929740e",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 2,
+      "run_id": "b2cc09ce91014e81a0d02f0258840be4",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 3,
+      "run_id": "da90a7c4d8984540998e55460f55aa6b",
+      "status": "completed",
+      "status_reason": null
+    },
+    {
+      "seed": 4,
+      "run_id": "f83ca380ca614dedb8cf7e11ea0cd77e",
+      "status": "completed",
+      "status_reason": null
+    }
+  ],
+  "overlap_count": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "patient_auc": {
+    "values": [
+      0.6628787878787878,
+      0.5877192982456141,
+      0.5438596491228069,
+      0.6346666666666667,
+      0.6534526854219949
+    ],
+    "defined": 5,
+    "total": 5,
+    "mean": 0.6165154174671741,
+    "population_std": 0.044612708690070495
+  },
+  "slice_auc": {
+    "values": [
+      0.6287878787878788,
+      0.5736607142857143,
+      0.5436638471177945,
+      0.6165,
+      0.6224424552429668
+    ],
+    "defined": 5,
+    "total": 5,
+    "mean": 0.597010979086871,
+    "population_std": 0.0329469410593717
+  }
+}

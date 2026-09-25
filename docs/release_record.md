@@ -44,9 +44,37 @@ Split: `reference_splits:grouped_split` (reference/reference_splits.py @ 683a906
 
 Patient AUC over defined seeds: 0.6165 ± 0.0446 (5/5 defined; population standard deviation, not a confidence interval).
 
+### Sweep `20260926T005150-302ddc`
+
+Split: `demo_repo.splits:make_split` (demo_repo/splits.py @ 42079a05a61a). Code commit `42079a05a61a`. Metadata `aff30de03f8c`.
+
+| Seed | Status | Patients in both sets (N) | Test patients (M) | Patient AUC | Slice AUC | Run ID |
+|---|---|---|---|---|---|---|
+| 0 | completed | 166 | 166 | 1.0000 | 1.0000 | `e3092eaa3a0a4aa29e1d1b6ed0d3fe86` |
+| 1 | completed | 172 | 172 | 1.0000 | 1.0000 | `dc5f11d6a819434d811cf23573ad54ac` |
+| 2 | completed | 169 | 169 | 1.0000 | 1.0000 | `a50d4322067f44d8940388ac30184164` |
+| 3 | completed | 167 | 167 | 1.0000 | 1.0000 | `2e570326403f4ccd9a124257fdd3e0c2` |
+| 4 | completed | 166 | 166 | 1.0000 | 1.0000 | `8e6deb346cc54eadb8e171d9c591d8bb` |
+
+Patient AUC over defined seeds: 1.0000 ± 0.0000 (5/5 defined; population standard deviation, not a confidence interval).
+
+### Sweep `20260926T005219-a23ab5`
+
+Split: `reference_splits:grouped_split` (reference/reference_splits.py @ 683a906a052d). Code commit `42079a05a61a`. Metadata `aff30de03f8c`.
+
+| Seed | Status | Patients in both sets (N) | Test patients (M) | Patient AUC | Slice AUC | Run ID |
+|---|---|---|---|---|---|---|
+| 0 | completed | 0 | 40 | 0.6629 | 0.6288 | `865ba31ba63d4db4bfffce44e1455ff0` |
+| 1 | completed | 0 | 40 | 0.5877 | 0.5737 | `12974038029c44c4ae69143e1929740e` |
+| 2 | completed | 0 | 40 | 0.5439 | 0.5437 | `b2cc09ce91014e81a0d02f0258840be4` |
+| 3 | completed | 0 | 40 | 0.6347 | 0.6165 | `da90a7c4d8984540998e55460f55aa6b` |
+| 4 | completed | 0 | 40 | 0.6535 | 0.6224 | `f83ca380ca614dedb8cf7e11ea0cd77e` |
+
+Patient AUC over defined seeds: 0.6165 ± 0.0446 (5/5 defined; population standard deviation, not a confidence interval).
+
 ## Comparison
 
-Pairing: default: latest sweep with patient overlap vs latest completed zero-overlap sweep. Row-level `20260926T002313-fc5249` vs patient-grouped `20260926T003423-abdfa2`. Difference = row-level minus grouped, only for seeds where both are defined. The two splits hold out different patients; the difference describes this engineered benchmark only.
+Pairing: default: latest sweep with patient overlap vs latest completed zero-overlap sweep. Row-level `20260926T005150-302ddc` vs patient-grouped `20260926T005219-a23ab5`. Difference = row-level minus grouped, only for seeds where both are defined. The two splits hold out different patients; the difference describes this engineered benchmark only.
 
 | Seed | Row-level patient AUC | Grouped patient AUC | Difference |
 |---|---|---|---|
