@@ -3,11 +3,17 @@ data/
 *.png
 *.jpg
 mlruns/
+run_artifacts/
+uv.lock
 wandb/
 node_modules/
 .next/
 dist/
 .venv/
 __pycache__/
+.pytest_cache/
 bob_sessions/
 .env
+mlflow.db
+docs/demo_plan.md
+docs/release_record.md

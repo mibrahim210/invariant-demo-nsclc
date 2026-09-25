@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
   "dataset_id": "invariant-synthetic-nsclc-v1",
-  "generator_version": "1.0.0",
-  "definition_status": "specified_not_generated_or_measured",
+  "generator_version": "1.1.0",
+  "definition_status": "specification_frozen",
   "synthetic_only": true,
   "source_data": "procedural_only_no_external_patient_or_public_dataset_inputs",
   "randomness": {
@@ -21,7 +21,7 @@
       1
     ],
     "patients_per_class": 100,
-    "label_assignment": "shuffle 100 zeros and 100 ones with label_seed; assign in patient_index order"
+    "label_assignment": "permute 100 zeros and 100 ones with label_seed (Generator.permutation); assign in patient_index order"
   },
   "sample": {
     "format": "npy",
@@ -81,7 +81,7 @@
       "geometry_distribution": "independent of label"
     },
     "texture": {
-      "method": "patient-specific 8x8 standard-normal grid; nearest repeat 8x8 to 64x64; clip to [-3,3] and divide by 3",
+      "method": "one patient-specific 8x8 standard-normal grid shared by both channels; clip to [-3,3] and divide by 3; nearest repeat 8x8 to 64x64; fixed in the pixel grid (not translated)",
       "persistent_across_slices": true,
       "independent_of_label": true,
       "ct_amplitude": 0.2,
@@ -89,7 +89,7 @@
     },
     "lesion": {
       "center_rule": "sample one lung with probability 0.5; add uniform x,y offsets in [-3,3] pixels; shared across channels",
-      "profile": "Gaussian centered at lesion center",
+      "profile": "isotropic Gaussian exp(-d^2 / (2 sigma^2)), sigma = radius_px * lesion_scale",
       "radius_px_by_label": {
         "0": 3.0,
         "1": 4.0
@@ -116,9 +116,26 @@
       "ct_lung": 0.2,
       "pet_background": 0.01,
       "pet_body": 0.08,
-      "mapping": "fixed constants, additive masked texture and lesion, then clip to [0,1]; no cohort-fitted normalization"
+      "mapping": "fixed constants, additive masked texture and lesion, then clip to [0,1]; no cohort-fitted normalization",
+      "pet_lung": "same as pet_body (no separate lung uptake)"
     },
-    "implementation_rule": "Implement these rules in data_gen.py; exact mask, translation, boundary and RNG draw order must be documented and versioned before freezing image hashes."
+    "implementation_rule": "Implemented in demo_repo/data_gen.py; mask, translation, boundary and draw-order rules below are normative.",
+    "masks": {
+      "ellipse_rule": "((x-cx)/rx)^2 + ((y-cy)/ry)^2 <= 1 evaluated at pixel centers",
+      "lung_centers": "configured lung centers shifted by the patient's body-center jitter",
+      "lungs_inside_body": "lung mask = lung ellipse AND body mask",
+      "texture_mask": "body mask",
+      "boundary": "no wraparound; geometry outside the 64x64 grid is truncated"
+    },
+    "translation_rule": "per-slice shift (dx, dy) applied analytically to body, lung and lesion centers; no resampling",
+    "draw_order": [
+      "labels: label_rng.permutation of [0]*n/2 + [1]*n/2, before any patient stream",
+      "patient: body_center_jitter uniform(-j, j, size=2) as (dx, dy)",
+      "patient: texture grid standard_normal((8, 8))",
+      "patient: lesion lung index = 0 if random() < 0.5 else 1",
+      "patient: lesion offset uniform(-3, 3, size=2) as (dx, dy)",
+      "per slice in ascending slice_index: translation uniform(-t, t, size=2), ct noise standard_normal((64, 64)), pet noise standard_normal((64, 64))"
+    ]
   },
   "outputs": {
     "metadata": "data/metadata.csv",
@@ -159,18 +176,6 @@
     ],
     "test_size": 0.2,
     "split_function": "demo_repo.splits:make_split",
-    "buggy_split": {
-      "class": "sklearn.model_selection.train_test_split",
-      "unit": "slice_id",
-      "shuffle": true,
-      "stratify": "label"
-    },
-    "fixed_split": {
-      "class": "sklearn.model_selection.GroupShuffleSplit",
-      "n_splits": 1,
-      "groups": "patient_id",
-      "stratified": false
-    },
     "model": {
       "class": "sklearn.neighbors.KNeighborsClassifier",
       "n_neighbors": 5,
@@ -193,6 +198,12 @@
       "undefined_auc": "null plus reason; never replace with zero",
       "seed_summary": "retain all seeds; report individual values, mean and population standard deviation of defined values with defined/total count; summarize per-seed differences only for seeds with both AUCs defined",
       "auc_target": null
+    },
+    "split_contract": {
+      "interface": "make_split(df, seed, test_size) -> (train_index_labels, test_index_labels)",
+      "input_order": "metadata sorted by patient_id, slice_index",
+      "requirements": "study protocol section 4 (INV-1 and complete valid two-way partition)",
+      "record_class_counts": true
     }
   },
   "freeze_policy": {
@@ -200,6 +211,7 @@
     "same_dataset_for_report_a_and_b": true,
     "retain_all_seed_results": true,
     "allow_test_driven_seed_selection": false,
-    "untouched_external_cohort": false
+    "untouched_external_cohort": false,
+    "generation_evidence": "data/generation_manifest.json (generator_git_sha, configuration_sha256, metadata and image-manifest hashes); this config is not edited after generation"
   }
 }

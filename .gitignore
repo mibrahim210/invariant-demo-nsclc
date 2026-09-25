@@ -1,30 +1,8 @@
-# Python artifacts and caches
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.pytest_cache/
-.hypothesis/
-
-# Virtual environments
-.venv/
-venv/
-ENV/
-
-# Bulk synthetic arrays (excluded per Section 10.3 and Section 15)
 data/slices/
-*.npy
-
-# Runtime logs, checkpoints, and MLflow outputs (excluded per Section 10.3 and Section 15)
 mlruns/
-wandb/
-run_artifacts/
-*.log
-
-# Sensitive or session-specific files
+.venv/
+__pycache__/
+.pytest_cache/
 .env
-bob_sessions/
-
-# OS specific
-.DS_Store
-Thumbs.db
+.bob/mcp.json
+mlflow.db
