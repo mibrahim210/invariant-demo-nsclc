@@ -1,0 +1,29 @@
+name: invariant-demo-nsclc CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  baseline-tests:
+    name: baseline-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install locked dependencies
+        run: uv sync --locked
+      - name: Baseline tests (temporary fixtures; no image arrays needed)
+        run: uv run pytest -q tests/test_dataset.py tests/test_split_shapes.py tests/test_training_guards.py
+
+  protocol-pdf:
+    name: protocol-pdf-matches-markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Rebuild the protocol PDF and compare bytes
+        run: uv run --no-project --with reportlab==4.4.4 python scripts/build_protocol_pdf.py --check
+
+  # invariant: the required Invariant check job is added once the invariant repo's Action exists.
