@@ -1,0 +1,15 @@
+{
+  "generator_version": "1.1.0",
+  "generator_git_sha": "088ca9ad6bc88635c462d953da98703c709569b5",
+  "configuration_path": "configs/data_generation.json",
+  "configuration_sha256": "5d9eb59028f68955ca7a02b12d9453c9ad55caa461b4863aca27d8139f0015e5",
+  "metadata_sha256": "aff30de03f8c87ca750c1752678069f1c3cd33d06703ae86c5c9e5ff2815dce0",
+  "image_manifest_sha256": "327ce4868f05975c99e8ed996afa9a410f92bb5e70d06c16d72f721175cc0568",
+  "dependency_versions": {
+    "python": "3.11.0",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1"
+  },
+  "sample_count": 1600
+}
