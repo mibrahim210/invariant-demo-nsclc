@@ -15,7 +15,7 @@ jobs:
       - name: Install locked dependencies
         run: uv sync --locked
       - name: Baseline tests (temporary fixtures; no image arrays needed)
-        run: uv run pytest -q tests/test_dataset.py tests/test_split_shapes.py tests/test_training_guards.py
+        run: uv run pytest -q tests/test_dataset.py tests/test_split_shapes.py tests/test_training_guards.py tests/test_predict.py
 
   protocol-pdf:
     name: protocol-pdf-matches-markdown
@@ -26,4 +26,44 @@ jobs:
       - name: Rebuild the protocol PDF and compare bytes
         run: uv run --no-project --with reportlab==4.4.4 python scripts/build_protocol_pdf.py --check
 
-  # invariant: the required Invariant check job is added once the invariant repo's Action exists.
+  invariant:
+    name: invariant
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      INVARIANT_SHA: PASTE_FULL_40_CHAR_SHA
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+    steps:
+      - name: Check out the PR head (not the merge commit)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          path: invariant-demo-nsclc
+      - name: Check out Invariant at a pinned commit
+        uses: actions/checkout@v4
+        with:
+          repository: mibrahim210/invariant
+          ref: ${{ env.INVARIANT_SHA }}
+          path: invariant
+      - uses: astral-sh/setup-uv@v6
+      - name: Target environment
+        working-directory: invariant-demo-nsclc
+        run: uv sync --locked
+      - name: Build the Validity Report (passes only on no_findings)
+        working-directory: invariant/mcp-server
+        run: |
+          uv sync --locked
+          uv run --locked python -m report.builder \
+            --target-repo "$GITHUB_WORKSPACE/invariant-demo-nsclc" \
+            --reports-root "$RUNNER_TEMP/reports" \
+            --expected-head "$HEAD_SHA" \
+            --expected-base "$BASE_SHA"
+      - name: Upload the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validity-report
+          path: ${{ runner.temp }}/reports
+          if-no-files-found: ignore
