@@ -6,3 +6,4 @@ __pycache__/
 .env
 .bob/mcp.json
 mlflow.db
+.hypothesis/
