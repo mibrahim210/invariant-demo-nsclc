@@ -31,7 +31,7 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     env:
-      INVARIANT_SHA: PASTE_FULL_40_CHAR_SHA
+      INVARIANT_SHA: ee0bb7c880483419e04895ac762119d5c0f6ed07
       HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       BASE_SHA: ${{ github.event.pull_request.base.sha }}
     steps:
