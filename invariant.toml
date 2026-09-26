@@ -1,9 +1,13 @@
 [target]
 protocol = "docs/study_protocol.pdf"
 metadata = "data/metadata.csv"
+row_id = "slice_id"
 group_key = "patient_id"
 split_function = "demo_repo.splits:make_split"
 split_seed = 0
+
+[review]
+base_ref = "main"
 
 [checks]
 required = ["inspect_split", "verify_split_overlap", "find_invariant_tests", "regression_tests"]
