@@ -1,6 +1,6 @@
 from sklearn.model_selection import train_test_split
 
-
+    """Split metadata rows into train and test sets; returns index labels for .loc."""
 def make_split(df, seed=0, test_size=0.2):
     """
     Buggy baseline: train_test_split over row index labels.
